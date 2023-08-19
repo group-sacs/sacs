@@ -1,75 +1,52 @@
 Rails.application.routes.draw do
-    
-    scope module: :public do
-      root to: 'homes#top'
-      get "/about" => "homes#about", as: "about"
-      resources :delivery, only: [:index, :edit, :create, :update, :destroy]
-      resources :orders, only: [:new, :index, :show, :create]
-      post 'orders/confirm' => "orders#confirm"
-      get 'orders/completion' => "orders#completion"
-      resources :cart_items, only: [:index, :create, :destroy, :update]
-      delete "cart_items/destroy_all" => "cart_items#destroy_all"
-      get "current_customer" => "customers#show"
-      patch "current_customer" => "customers#update"
-      get "current_customer/edit" => "customers#edit"
-      get "current_customer/confirm" => "customers#confirm"
-      patch "current_customer/withdraw" => "customers#withdraw"
-      resources :items, only: [:index, :show]
-    end
-  
   namespace :admin do
-    root to: 'homes#top'
-    resources :orders, only: [:show, :update]
-    resources :customers, only: [:index, :show, :edit, :update]
-    resources :genres, only: [:index, :edit, :create, :update]
-    resources :items, only: [:index, :new, :show, :edit, :create, :update]
-    resources :order_details, only: [:update]
+    get 'orders/show'
   end
-  # namespace :admin do
-  #   get 'customers/index'
-  #   get 'customers/show'
-  #   get 'customers/edit'
-  # end
-  # namespace :admin do
-  #   get 'genres/index'
-  #   get 'genres/edit'
-  # end
-  # namespace :admin do
-  #   get 'items/index'
-  #   get 'items/new'
-  #   get 'items/show'
-  #   get 'items/edit'
-  # end
-  # namespace :admin do
-  #   get 'homes/top'
-  # end
-  # namespace :public do
-
-  #   # get 'delivery/index'
-  #   # get 'delivery/edit'
-  # end
-  # namespace :public do
-  #   get 'orders/new'
-
-  #   get 'orders/index'
-  #   get 'orders/show'
-  # end
-  # namespace :public do
-  #   get 'cart_items/index'
-  # end
-  # namespace :public do
-  #   get 'customers/show'
-  #   get 'customers/edit'
- 
-  # end
-  # namespace :public do
-  #   get 'items/index'
-  #   get 'items/show'
-  # end
-  # namespace :public do
-  #   get 'homes/top'
-  #   get 'homes/about'
-  # end
+  namespace :admin do
+    get 'customers/index'
+    get 'customers/show'
+    get 'customers/edit'
+  end
+  namespace :admin do
+    get 'genres/index'
+    get 'genres/edit'
+  end
+  namespace :admin do
+    get 'items/index'
+    get 'items/new'
+    get 'items/show'
+    get 'items/edit'
+  end
+  namespace :admin do
+    get 'homes/top'
+  end
+  namespace :public do
+    get 'delivery/index'
+    get 'delivery/edit'
+  end
+  namespace :public do
+    get 'orders/new'
+    get 'orders/confirm'
+    get 'orders/completion'
+    get 'orders/index'
+    get 'orders/show'
+  end
+  namespace :public do
+    get 'cart_items/index'
+  end
+  namespace :public do
+    get 'customers/show'
+    get 'customers/edit'
+    get 'customers/confirm'
+  end
+  namespace :public do
+    get 'items/index'
+    get 'items/show'
+  end
+  namespace :public do
+    get 'homes/top'
+    get 'homes/about'
+  end
 devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
