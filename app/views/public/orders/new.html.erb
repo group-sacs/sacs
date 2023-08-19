@@ -1,2 +1,12 @@
-<h1>Public::Orders#new</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
+<h3>注文情報入力</h3>
+<%= form_with model: @order, url: "/orders/confirm", method: :post, local: true do |f| %>  
+
+  <h4>お届け先</h4>
+   <%= f.radio_button :address_option, 0, checked: "checked" %>　
+      <%= f.label :order_address, "ご自身の住所" %>  
+   <br>
+     〒<%= current_member.post_code %>
+        <%= current_member.address %><br>
+        <%= current_member.last_name %><%= current_member.first_name %>
+   <br>  
+<%end%>
