@@ -1,2 +1,17 @@
 <h1>Public::Customers#show</h1>
 <p>Find me in app/views/public/customers/show.html.erb</p>
+
+<h1>マイページ</h1>
+<h2>登録情報</h2>
+<p><%= link_to "編集する", current_customer_edit_path(@customer), class:"btn btn-success btn-sm btn-block sign_up" %></p>
+
+<div>
+  <h3>氏名<%= @customer.last_name %> <%= @customer.first_name %></h3>
+  <h3>カナ<%= @customer.last_name_kana %> <%= @customer.first_name_kana %></h3>
+  <h3>郵便番号<%= @customer.postal_code %></h3>
+  <h3>住所<%= @customer.address %></h3>
+  <h3>電話番号<%= @customer.telephone_number %></h3>
+  <h3>メールアドレス<%= @customer.email %></h3>
+</div>
+<h2>配送先</h2><p><%= link_to “一覧を見る”, delivery_path, class:"btn btn-info btn-sm btn-block mb-3" %></p>
+<h2>注文履歴</h2><p><%= link_to “一覧を見る”, orders_path, class:"btn btn-info btn-sm btn-block mb-3" %></p>
