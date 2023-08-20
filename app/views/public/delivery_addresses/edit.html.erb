@@ -1,0 +1,17 @@
+　<h1>配送先編集<h1>
+<%= form_with model: @delivery, url: update_delivery_path(@delivery.id), method: :patch do |f| %>#5章参照
+<table>
+  　<tbody>
+  　　<tr>
+　　　　<th>郵便番号（ハイフンなし）</th>
+　　　　<th><%= f.text_field :postal_code %></th>
+  　　</tr>
+   　  <tr>
+       <td>住所</td>
+       <td><%= f.text_field :address %></td>
+      </tr>
+      <tr>
+       <td>宛名</td>
+       <td><%= f.text_field :name %> 　　<%= f.submit '保存' %><% end %></td>
+      </tr>
+</table>
