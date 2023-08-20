@@ -19,7 +19,7 @@
       <% end %>
 </table>
 
-<table>#下の表記はどうしたらいいですか？
+<table>#下の表はどうしたらいいのか
   　<tbody>
   　　<tr>
 　　　　<th>郵便番号</th>
@@ -28,11 +28,11 @@
 　　　　 <th></th>
   　　</tr>
 </table>
- <tbody>
+ 
   <% @deliverys.each do |delivery| %>#どうやって表内に繰り返し表示させる？
    <span><%= deliveryaddress.customer_id %></span>
    <span><%= deliveryaddress_code %><%= delivery.postal_code %></span>
    <span><%= deliveryaddress.name %></span>
-<% end %>
- </tbody>
+  <% end %>
+
  

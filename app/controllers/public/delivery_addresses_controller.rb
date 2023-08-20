@@ -1,11 +1,9 @@
 class Public::DeliveryAddressesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_customer!
   def index
-    @delivery = Delivery.find(params[:id])#インスタンス変数はどうする？
-    if @delivery.customer == current_customer
-      render "index"#配送先一覧ページ
+   
     @deliverys = DeliveryAddress.all
-    @user =current_customer#ログインしているユーザ
+    @customer =current_customer#ログインしているユーザいらない
     @delivery= DeliveryAddress.new
   end
 
@@ -22,7 +20,7 @@ class Public::DeliveryAddressesController < ApplicationController
      @delivery = DeliveryAddress.new(delivery_params)
     @delivery.customer_id = current_customer.id
     if @delivery.save
-      redirect_to delivery_path(@delivery)#ユーザ配達情報維持したままどこに移動する？
+      redirect_to delivery_addresses_path(@delivery)#ユーザ配達情報維持したままどこに移動する？
     else
       @deliverys = DeliveryAddress.all
       @user = current_customer
@@ -33,7 +31,7 @@ class Public::DeliveryAddressesController < ApplicationController
   def update
    @delivery = DeliveryAddress.find(params[:id])
     if @delivery.update(delivery_params)
-      redirect_to delivery_path(@delivery)#どこに行く？一覧にしとく
+      redirect_to delivery_addresses_path(@delivery)#どこに行く？一覧にしとく
     else
       render "edit"
     end
@@ -41,7 +39,7 @@ class Public::DeliveryAddressesController < ApplicationController
   def destroy
     delivery = DeliveryAddress.find(params[:id])
     deliveryAddress.destroy
-    redirect_to deliverys_path#一覧に飛ぶ？
+    redirect_to delivery_addresses_path#一覧に飛ぶ？
   end
   
   end

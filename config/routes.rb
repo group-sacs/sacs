@@ -23,6 +23,15 @@ Rails.application.routes.draw do
       patch "current_customer/withdraw" => "customers#withdraw"
       resources :items, only: [:index, :show]
     end
+    
+    namespace :admin do
+      root to: 'homes#top'
+      resources :orders, only: [:show, :update]
+      resources :customers, only: [:index, :show, :edit, :update]
+      resources :genres, only: [:index, :edit, :create, :update]
+      resources :items, only: [:index, :new, :show, :edit, :create, :update]
+      resources :order_details, only: [:update]
+    end
 
   # namespace :admin do
   #   get 'customers/index'
