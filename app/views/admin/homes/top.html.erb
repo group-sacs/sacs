@@ -12,22 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @orders.each do |order| %>
-            <tr>
-              <td class="align-middle link">
-                <%= link_to admin_order_path(order) do %>
-                <%= order.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
-                <% end %>
-              </td>
-              <td class="align-middle">
-                <%= order.customer.last_name+order.customer.first_name %>
-              </td>
-              <td class="align-middle">
-                <!--注文個数を出力する-->
-              </td>
-              <td class="align-middle"><%= order.status %></td>
-            </tr>
-          <% end %>
+          <!--注文履歴一覧をだす-->
         </tbody>
       </table>
     </div>
