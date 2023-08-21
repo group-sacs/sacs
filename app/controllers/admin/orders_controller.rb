@@ -1,10 +1,10 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_member!
-  
+
   def index
     @orders = Order.all
   end
-  
+
   def confirm
     @order = Order.new(order_params)
     if params[:order][:select_address] == "0"
@@ -23,12 +23,12 @@ class Admin::OrdersController < ApplicationController
       @order_new = Order.new
       render :confirm
   end
-  
+
   def create
     order = Order.new(order_params)
     order.save
     @cart_items = current_customer.cart_items.all
-    
+
     @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
       @order_details.order_id = order.id
@@ -38,31 +38,34 @@ class Admin::OrdersController < ApplicationController
       @order_details.manufacture_status = 0
       @order_details.save!
     end
-    
+
     CartItem.destroy_all
     redirect_to orders_completion_path
 
   end
-      
+
   def new
     @order = Order.new
     @addresses = current_customer.addresses.all
   end
-  
+
   def show
     @order_details = OrderDetail.where(order_id: params[:id])
     @order = Order.find(params[:id])
   end
-  
+
   private
     def order_params
       params.require(:order).permit(:payment_method, :postal_code, :address, :name, :postage, :amount_requested, :end_user_id , :order_status)
     end
-    
+
     def cartitem_nill
       cart_items = current_customer.cart_items
       if cart_items.blank?
         redirect_to cart_items_path
       end
     end
+  def update
+  end
+
 end
