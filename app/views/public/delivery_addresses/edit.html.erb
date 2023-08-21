@@ -1,5 +1,6 @@
 　<h1>配送先編集<h1>
-<%= form_with model: @delivery, url: update_delivery_path(@delivery.id), method: :patch do |f| %>#5章参照
+
+<%= form_with model: @delivery, url: delivery_address_path(@delivery.id) , method: :patch do |f| %>#5章参照
 <table>
   　<tbody>
   　　<tr>
@@ -12,6 +13,8 @@
       </tr>
       <tr>
        <td>宛名</td>
-       <td><%= f.text_field :name %> 　　<%= f.submit '保存' %><% end %></td>
-      </tr>
+       <td><%= f.text_field :name %> 　　<%= f.submit '保存' %></td>
+
+      </tr></tbody>
 </table>
+ <% end %>

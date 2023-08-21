@@ -1,44 +1,22 @@
 class Public::ItemsController < ApplicationController
- before_action :authenticate_admin!#運営がはログインすみのみ表示
-  before_action :set_item only[:new, :create, :edit, :update]#これどういう意味
-
   def index
-    @Items = Item.all
+    @items = get_item(params)
   end
 
-  def new
-    @item = Items.new
-  end
-
-  def create
-    @item = Item.new(item_params)
-    if @item.save
-      redirect_to admin_item_path(@item)#koredousuru?パスなくない？
-    else
-      render :new
-    end
-  end
-
-  def show; end
-
-  def edit; end
-
-  def update
-    if @item.update(item_params)
-      redirect_to item_path(@item)
-    else
-      render :edit
-    end
+  def show
+    @item = Item.find(params[:id])
   end
 
   private
 
-  def set_product#これ何？
-    @product = Product.find(params[:id])
-  end
+  def get_item(params)
+    return Item.all, 'default' unless params[:latest] || params[:price_high_to_low] || params[:price_low_to_high]
 
-  def product_params
-    params.require(:item).permit(:name, :explamatory_text, :without_tax_price, :is_sales_status)
+    return Item.latest, 'latest' if params[:latest]
+
+    return Item.price_high_to_low, 'price_high_to_low' if params[:price_high_to_low]
+
+    return Item.price_low_to_high, 'price_low_to_high' if params[:price_low_to_high]
   end
 end
-end
+

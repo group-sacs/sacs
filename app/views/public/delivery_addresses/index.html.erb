@@ -18,21 +18,23 @@
       </tr>
       <% end %>
 </table>
-
-<table>#下の表はどうしたらいいのか
-  　<tbody>
+<table class="table table-bordered">
+  　<thead>
   　　<tr>
 　　　　<th>郵便番号</th>
 　　　　<th>住所</th>
         <th>宛名</th>
 　　　　 <th></th>
   　　</tr>
-</table>
- 
-  <% @deliverys.each do |delivery| %>#どうやって表内に繰り返し表示させる？
-   <span><%= deliveryaddress.customer_id %></span>
-   <span><%= deliveryaddress_code %><%= delivery.postal_code %></span>
-   <span><%= deliveryaddress.name %></span>
+    </thead>
+ <tbody><% @deliverys.each do |delivery| %>
+  <tr>
+   <td><%= delivery.postal_code %></td>
+   <td> <%= delivery.address %></td>
+   <td> <%= delivery.name %></td>
+   <td><%= link_to "編集", edit_delivery_address_path(delivery.id) %>
+   <%= link_to "削除", delivery_address_path(delivery.id), method: :delete %></td>
+  </tr>
   <% end %>
-
- 
+ </tbody>
+ </table>
