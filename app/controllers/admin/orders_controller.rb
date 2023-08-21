@@ -1,6 +1,10 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_member!
   
+  def index
+    @orders = Order.all
+  end
+  
   def confirm
     @order = Order.new(order_params)
     if params[:order][:select_address] == "0"
@@ -46,6 +50,8 @@ class Admin::OrdersController < ApplicationController
   end
   
   def show
+    @order_details = OrderDetail.where(order_id: params[:id])
+    @order = Order.find(params[:id])
   end
   
   private
