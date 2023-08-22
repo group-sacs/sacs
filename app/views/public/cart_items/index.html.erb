@@ -10,19 +10,19 @@
   <% @cart_items.each do |cart_item| %>
        <tr>
         <td><%= cart_item.item.name %></td>
-        <td><%= (cart_item.item.price * 1.1).floor %></td>
+        <td><%= (cart_item.item.without_tax_price * 1.1).floor %></td>
         <td>
-          <%= form_for cart_item, url: update_cart_item_path(cart_item), method: :patch do |f| %>
-            <%= f.select :amount, options_for_select((1..10).map { |i| [i, i] }, selected: cart_item.amount) %>
+          <%= form_for cart_item, url: cart_item_path(cart_item), method: :patch do |f| %>
+            <%= f.select :quantity, options_for_select((1..10).map { |i| [i, i] }, selected: cart_item.quantity) %>
             <%= f.submit "数量の変更を確定" %>
           <% end %>
         </td>
-        <td><%= (cart_item.item.price * 1.1).floor * cart_item.amount %></td>
+        <td><%= (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity %></td>
       </tr>
     <% end %>
     <tr>
       <td colspan="3">合計金額</td>
-      <td><%= @cart_items.sum { |cart_item| (cart_item.item.price * 1.1).floor * cart_item.amount } %></td>
+      <td><%= @cart_items.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } %></td>
     </tr>
   </tbody>
 </table>

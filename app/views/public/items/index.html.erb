@@ -5,10 +5,10 @@
   </thead>
   <tbody>
     <% @items.each do |item| %>
-     <tr><td><%= link_to image_tag(item.image, width: '100', height: '100'), item_path(item) %></td>
-        <td><%= item.name %>
-        <td><%= item.without_tax_price %></td>
-      </tr>
+     <tr><td><%= link_to image_tag(item.image, width: '100', height: '100'), item_path(item) %></td></tr>
+       <tr> <td><%= item.name %></td></tr>
+       <tr> <td>￥<%= item.without_tax_price %></td>/<tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @items %>
