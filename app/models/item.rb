@@ -9,4 +9,9 @@ class Item < ApplicationRecord
  end
 
  has_one_attached :image
+# 下記追記した
+ def add_tax_without_tax_price
+  (self.without_tax_price * 1.10).round
+ end
+
 end
