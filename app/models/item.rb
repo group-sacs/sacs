@@ -7,6 +7,7 @@ class Item < ApplicationRecord
    validates :without_tax_price
    validates :image
  end
+
  has_one_attached :image
 # 下記追記した
  def add_tax_without_tax_price

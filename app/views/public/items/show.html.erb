@@ -1,2 +1,9 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+ <%= image_tag @item.image, size: "300x300" %>
+商品名
+  <%= @item.name %>
+商品説明
+  <%= @item.explamatory_text %>
+税込価格
+<%= @item.add_tax_sales_price.to_s(:dalimited) %>円
+<%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "選択して下さい" %>
+<%= link_to "カートに入れる", cart_items_path, class: 'btn btn-primary' %>
