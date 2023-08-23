@@ -1,37 +1,51 @@
-<h2><%= @customer.last_name + @customer.first_name %>さんの会員情報編集</h2>
-<p>会員ID</p>
-<p><%= @customer.id %></p>
-<%= form_with model: @customer, url: admin_customer_path, method: :patch, local: true do |f| %>
-  <table>
-    <tbody>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1">
+      <h2><%= @customer.last_name + @customer.first_name %>さんの会員情報編集</h2>
+    </div>
+  </div>
+  <%= form_with model: @customer, url: admin_customer_path, method: :patch, local: true do |f| %>
+  <div class="row">
+    <div class="col-sm-6 px-sm-0 offset-sm-1">
+    <table class="table table-bordered">
+       <tr>
+         <th class="table-active">会員ID</th>
+         <td><%= @customer.id %></td>
+       </tr>
     <tr>
-      <td><%= f.label "氏名" %></td>
+      <th class="table-active"><%= f.label "氏名" %></th>
       <td><%= f.text_field :last_name %><%= f.text_field :first_name %></td>        </tr>
      <tr>
-       <td><%= f.label "フリガナ" %></td>
+       <th class="table-active">><%= f.label "フリガナ" %></th>
        <td><%= f.text_field :last_name_kana %><%= f.text_field :first_name_kana %></td>
       </tr>
       <tr>
-        <td><%= f.label "郵便番号" %></td>
+        <th class="table-active"><%= f.label "郵便番号" %></th>
         <td><%= f.text_field :postal_code %></td>
       </tr>
       <tr>
-        <td><%= f.label "住所" %></td>
+        <th class="table-active"><%= f.label "住所" %></th>
         <td><%= f.text_field :address %></td>
       </tr>
       <tr>
-        <td><%= f.label "電話番号" %></td>
+        <th class="table-active"><%= f.label "電話番号" %></th>
         <td><%= f.text_field :telephone_number %></td>
       </tr>
       <tr>
-        <td><%= f.label "メールアドレス" %></td>
+        <th class="table-active"><%= f.label "メールアドレス" %></th>
         <td><%= f.text_field :email %></td>
       </tr>
       <tr>
-        <td><%= f.label "会員ステータス" %></td>
+        <th class="table-active"><%= f.label "会員ステータス" %></th>
         <td><%= f.select :is_deleted, [['有効', false], ['退会済み', true]], {}, { class: 'form-control' } %></td>
       </tr>
-      <tr><td><%= f.submit '変更を保存' %></td></tr>
-    </tbody>
-  </table>
-      <% end %>
+    </table>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-lg-6 px-sm-0 offset-sm-1">
+      <%= f.submit '変更を保存' %>
+    </div>
+  </div>
+  <% end %>
+</div>
