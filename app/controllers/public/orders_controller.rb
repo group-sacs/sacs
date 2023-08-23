@@ -19,6 +19,7 @@ class Public::OrdersController < ApplicationController
       @order.customer_id = current_customer.id
     end
       @cart_items = current_customer.cart_items
+      @total = 0
       @order_new = Order.new
       render :confirm
   end
@@ -30,11 +31,11 @@ class Public::OrdersController < ApplicationController
 
     @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
-      @order_details.order_id = order.id
+      @order_details.order_id = @order.id
       @order_details.item_id = cart_item.item.id
-      @order_details.price = cart_item.item.price_excluding_tax
-      @order_details.number = cart_item.amount
-      @order_details.manufacture_status = 0
+      @order_details.purchase_price = cart_item.item.without_tax_price
+      @order_details.quantity = cart_item.quantity
+      @order_details.production_status = 0
       @order_details.save!
     end
     CartItem.destroy_all
@@ -56,7 +57,7 @@ class Public::OrdersController < ApplicationController
   private
   
   def order_params
-    params.require(:order).permit(:payment_method, :delivery_postal_code, :delivery_address, :delivery_address_name, :customer_id , :order_status, :delivery_address_name)
+    params.require(:order).permit(:payment_method, :delivery_postal_code, :delivery_address, :delivery_address_name, :customer_id , :status, :total_price, :postage)
     
   end
 
