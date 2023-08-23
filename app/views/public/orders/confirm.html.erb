@@ -6,18 +6,17 @@
         <td>小計</td>
     </tr>
     
-    <% @sum = 0 %>
     
     <% @cart_items.each do |cart_item| %>
     <tr>
         <td>
-            <%= attachment_image_tag cart_item.item, :image, :fill, 300, 300, format: 'jpeg' %>
+            <%= image_tag cart_item.item.image, size:"300x300" %>
             <%= cart_item.item.name %>
         </td>
-        <td><%= cart_item.item.with_tax_price %></td>
-        <td><%= cart_item.amount %></td>]
-        <% @sum += cart_item.subtotal %>
-        <td><%= @sum %></td>
+        <td><%= cart_item.item.without_tax_price %></td>
+        <td><%= cart_item.quantity %></td>]
+        <% @total += cart_item.total_price %>
+        <td><%= @total %></td>
     </tr>
     <% end %>
 </table>
@@ -29,11 +28,11 @@
     </tr>
     <tr>
         <td>商品合計</td>
-        <td><%= @sum %></td>
+        <td><%= @total %></td>
     </tr>
     <tr>
         <td>請求金額</td>
-        <td><%= @sum + 800 %></td>
+        <td><%= @total + 800 %></td>
     </tr>
 </table>
     
@@ -45,21 +44,22 @@
     <tr>
         <th>お届け先</th>
         <td>
-            <%= @order.address %>
-            <%= @order.name %>
+            〒<%= @order.delivery_postal_code %>
+            <%= @order.delivery_address %>
+            <%= @order.delivery_address_name %>
         </td>
     </tr>
 </table>
 
 <%= form_with model: @order_new , url: "/orders" , local:true do |f| %>
-    <%= f.hidden_field :customer_id, value: current_end_user.id %>
+    <%= f.hidden_field :customer_id, value: current_customer.id %>
     <%= f.hidden_field :payment_method, value:  @order.payment_method %>
     <%= f.hidden_field :postage, value: 800 %>
-    <%= f.hidden_field :postal_code, value: @order.postal_code %>
-    <%= f.hidden_field :amount_requested, value: @sum + 800%>
-    <%= f.hidden_field :address, value: @order.address%>
-    <%= f.hidden_field :name, value: @order.name %>
-    <%= f.hidden_field :order_status, value: "wait_payment"%>
+    <%= f.hidden_field :delivery_postal_code, value: @order.delivery_postal_code %>
+    <%= f.hidden_field :total_price, value: @total + 800%>
+    <%= f.hidden_field :delivery_address, value: @order.delivery_address%>
+    <%= f.hidden_field :delivery_address_name, value: @order.delivery_address_name %>
+    <%= f.hidden_field :status, value: "wait_payment"%>
     <%= f.submit "注文を確定する" %>
 <% end %>
 

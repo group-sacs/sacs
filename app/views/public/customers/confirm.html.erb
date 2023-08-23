@@ -4,4 +4,4 @@
 退会する場合は、「退会する」をクリックしてください。
 
 <!--退会処理を行いたい-->
-<p><%= link_to "退会しない", current_customer_path, class:"btn btn-success" %><%= link_to "退会する", current_customer_path, class:"btn btn-success" %></p></p>
+<p><%= link_to "退会しない", current_customer_path, class:"btn btn-primary" %><%= link_to "退会する", current_customer_withdraw_path, method: :patch, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></p>
