@@ -1,9 +1,12 @@
- <%= image_tag @item.image, size: "300x300" %>
-商品名
-  <%= @item.name %>
-商品説明
-  <%= @item.explamatory_text %>
-税込価格
-<%= @item.add_tax_sales_price.to_s(:dalimited) %>円
-<%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "選択して下さい" %>
-<%= link_to "カートに入れる", cart_items_path, class: 'btn btn-primary' %>
+<%= form_with model: @cart_item, url: cart_items_path do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
+  <%= image_tag @item.image, size: "300x300" %>
+  <h2>商品名</h2>
+  <p><%= @item.name %></p>
+  <h2>商品説明</h2>
+  <p><%= @item.explamatory_text %></p>
+  <h2>税込価格</h2>
+  <p><%= @item.add_tax_without_tax_price.to_s(:delimited) %>円</p>
+  <%= f.select :quantity, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { include_blank: '個数選択' }, required: true %>&emsp;
+  <%= f.submit "カートに入れる", class: 'btn btn-primary' %>
+<% end %>

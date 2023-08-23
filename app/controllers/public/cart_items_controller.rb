@@ -10,7 +10,14 @@ class Public::CartItemsController < ApplicationController
     increase_or_create(params[:cart_item][:item_id])
     redirect_to cart_items_path
   end
-
+  def update
+    cart_item = CartItem.find(params[:id])
+    if cart_item.update(cart_item_params)
+      redirect_to cart_items_path
+    else
+      render :index
+    end
+  end
   def increase
     @cart_item.increment!(:quantity, 1)
     redirect_to request.referer
@@ -35,17 +42,16 @@ class Public::CartItemsController < ApplicationController
   def increase_or_create(item_id)
     cart_item = current_customer.cart_items.find_by(item_id:)
     if cart_item
-      cart_item.increment!(:quantity, 1)
+      cart_item.quantity += params[:cart_item][:quantity].to_i
     else
-      current_customer.cart_items.build(item_id:).save
+     cart_item = CartItem.new(cart_item_params.merge(customer_id: current_customer.id))
     end
+    cart_item.save#saveするときにはストロングパラメータを使う！！！
   end
 
-  def decrease_or_destroy(cart_item)
-    if cart_item.quantity > 1
-      cart_item.decrement!(:quantity, 1)
-    else
-      cart_item.destroy
-    end
+ 
+ private 
+  def cart_item_params
+   params.require(:cart_item).permit(:item_id, :customer_id,:quantity)
   end
 end
