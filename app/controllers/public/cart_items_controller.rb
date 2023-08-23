@@ -10,8 +10,14 @@ class Public::CartItemsController < ApplicationController
     increase_or_create(params[:cart_item][:item_id])
     redirect_to cart_items_path
   end
-　def update
-　end
+  def update
+    cart_item = CartItem.find(params[:id])
+    if cart_item.update(cart_item_params)
+      redirect_to cart_items_path
+    else
+      render :index
+    end
+  end
   def increase
     @cart_item.increment!(:quantity, 1)
     redirect_to request.referer
