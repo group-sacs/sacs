@@ -2,7 +2,7 @@
 <div>
   <p>
     <strong class="col-xs-2">購入者</strong>
-    <%= link_to admin_customer_path(@order) do %>
+    <%= link_to admin_customer_path(@order.customer_id) do %>
       <%= @order.customer.last_name %><%= @order.customer.first_name %>
     <% end %>
   </p>
@@ -23,16 +23,16 @@
 <div>
   <p>
     <strong class="col-xs-2">支払い方法</strong>
-    <%= @order.payment_method %>
+    <%= @order.payment_method_i18n %>
   </p>
 </div>
 
 <%= form_with model:@order, url: admin_order_path, local: true do |f| %>
   <%= f.select :status,Order.statuses_i18n.invert,{} %>
-  <%= f.submit '更新', class:"btn btn-outline-success" %>
+  <%= f.submit '更新', class:"btn btn-success" %>
  <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>商品名</th>
@@ -59,6 +59,12 @@
 <% end %>
 </table>
 
-¥<%= (@order.total_price - @order.postage).to_s(:delimited)%>
-¥<%= @order.postage%>
-¥<%= @order.total_price.to_s(:delimited) %>
+
+<table class="table table-bordered table-primary">
+<td>商品合計</td>
+<td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } %></td>
+<td>配送料</td>
+<td>¥<%= @order.postage%></td>
+<td>ご請求額</td>
+<td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } + 800 %></td>
+</table>
