@@ -13,7 +13,7 @@
               <h3>お届け先</h3>
               
                 <p><%= f.radio_button :select_address, 0 %>ご自身の住所</p>
-                <%= current_customer.address_display%>
+                <p><%= current_customer.address_display%></p>
              
                 <p><%= f.radio_button :select_address, 1 %>登録済住所から選択</p>
                 <p><%= f.select :delivery_address_id, options_from_collection_for_select(@addresses, :id, :address_display) %></p>
@@ -23,15 +23,15 @@
                 <table>
                     <tr>
                         <td>郵便番号(ハイフンなし)</td>
-                        <td> <%= f.text_field :postal_code %></td>
+                        <td> <%= f.text_field :delivery_postal_code %></td>
                     </tr>
                     <tr>
                         <td>住所</td>
-                        <td><%= f.text_field :address %></td>
+                        <td><%= f.text_field :delivery_address %></td>
                     </tr>
                     <tr>
                         <td>宛名</td>
-                        <td><%= f.text_field :name %></td>
+                        <td><%= f.text_field :delivery_address_name %></td>
                     </tr>
                 </table>
             
