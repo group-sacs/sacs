@@ -1,9 +1,9 @@
 class Item < ApplicationRecord
  belongs_to :genre
  # 下記追記した
- has_many :cart_items
+ has_many :cart_items, dependent: :destroy
  # 下記追記した
- has_many :order_details
+ has_many :order_details, dependent: :destroy
   with_options presence: true do
    validates :name
    validates :explamatory_text
