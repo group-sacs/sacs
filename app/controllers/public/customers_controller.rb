@@ -21,9 +21,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def withdraw
-    customer = current_customer
-    customer.destroy
-    redirect_to root_path
+    @customer = current_customer
   end
 
 private
