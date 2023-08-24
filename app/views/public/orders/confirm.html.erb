@@ -13,10 +13,10 @@
             <%= image_tag cart_item.item.image, size:"300x300" %>
             <%= cart_item.item.name %>
         </td>
-        <td><%= cart_item.item.without_tax_price %></td>
+        <td><%= (cart_item.item.without_tax_price * 1.1).floor %></td>
         <td><%= cart_item.quantity %></td>
-        <% @total += cart_item.total_price %>
-        <td><%= @total %></td>
+        
+        <td><%= (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity %></td>
     </tr>
     <% end %>
 </table>
@@ -28,11 +28,11 @@
     </tr>
     <tr>
         <td>商品合計</td>
-        <td><%= @total %></td>
+        <td><%= @cart_items.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } %></td>
     </tr>
     <tr>
         <td>請求金額</td>
-        <td><%= @total + 800 %></td>
+        <td><%= @cart_items.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } + 800 %></td>
     </tr>
 </table>
     

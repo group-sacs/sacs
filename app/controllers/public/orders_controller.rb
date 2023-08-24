@@ -47,11 +47,15 @@ class Public::OrdersController < ApplicationController
 
   def index
     @orders = Order.all
+    @cart_items = current_customer.cart_items
   end
 
   def show
     @order_details = OrderDetail.where(order_id: params[:id])
     @order = Order.find(params[:id])
+    @cart_items = current_customer.cart_items
+    @total = 0
+    @order_new = Order.new
   end
   
   private
