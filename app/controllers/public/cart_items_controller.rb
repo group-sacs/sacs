@@ -1,9 +1,14 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :set_cart_item, only: %i[increase decrease destroy]
+  #before_action :set_cart_item, only: %i[ destroy]
 
   def index
     @cart_items = current_customer.cart_items
+  if @cart_items.blank?  # Check if cart_items is empty
+    @empty_cart = true
+  else
+    @empty_cart = false
+  end
   end
 
   def create
@@ -18,26 +23,21 @@ class Public::CartItemsController < ApplicationController
       render :index
     end
   end
-  def increase
-    @cart_item.increment!(:quantity, 1)
-    redirect_to request.referer
+  def destroy_all
+   current_customer.cart_items.destroy_all
+   redirect_to request.referer
   end
-
-  def decrease
-    decrease_or_destroy(@cart_item)
-    redirect_to request.referer, notice
-  end
-
   def destroy
+    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     redirect_to request.referer
   end
-
+  
   private
 
-  def set_cart_item
-    @cart_item = current_customer.cart_items.find(params[:id])
-  end
+  # def set_cart_item
+  #   @cart_item = current_customer.cart_items.find(params[:id])
+  # end
 
   def increase_or_create(item_id)
     cart_item = current_customer.cart_items.find_by(item_id:)
@@ -48,9 +48,6 @@ class Public::CartItemsController < ApplicationController
     end
     cart_item.save#saveするときにはストロングパラメータを使う！！！
   end
-
- 
- private 
   def cart_item_params
    params.require(:cart_item).permit(:item_id, :customer_id,:quantity)
   end

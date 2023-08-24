@@ -27,7 +27,14 @@
 　　　　 <th></th>
   　　</tr>
     </thead>
- <tbody><% @deliverys.each do |delivery| %>
+ <tbody><tr>
+   <td><%= current_customer.postal_code %></td>
+   <td> <%= current_customer.address %></td>
+   <td> <%= current_customer.last_name%><%= current_customer.first_name%></td>
+   <td><%= link_to "編集",current_customer_edit_path%>
+   </td>
+  </tr>
+   <% @deliverys.each do |delivery| %>
   <tr>
    <td><%= delivery.postal_code %></td>
    <td> <%= delivery.address %></td>

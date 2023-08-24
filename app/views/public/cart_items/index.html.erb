@@ -1,4 +1,8 @@
+
 <h1>ショッピングカート</h1>
+　<div style="display: flex; justify-content: flex-end;">
+  <%= link_to "全部削除",  cart_items_destroy_all_path, method: :delete, class: 'btn btn-primary' %>
+  </div>
 <table class="table table-bordered">
   <thead>
       <th>商品名</th>
@@ -20,6 +24,7 @@
           <% end %>
         </td>
         <td><%= (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity %></td>
+        <td><%= link_to "削除",    cart_item_path(cart_item.id), method: :delete %></td>
       </tr>
       <% end %>
     <% end %>
@@ -29,7 +34,16 @@
     </tr>
   </tbody>
 </table>
-<%= link_to "買い物を続ける", items_path, class: 'btn btn-primary' %></br>
+<%= link_to "買い物を続ける", root_path, class: 'btn btn-primary' %></br>
 </br>
 </br>
-<%= link_to "注文情報入力に移動", new_order_path, class: 'btn btn-primary' %>
+<!--<div class=" d-flex align-items-center justify-content-center" style="height:100px;">-->
+<!--<%#= link_to "注文情報入力に移動", new_order_path, class: 'btn btn-primary' %>-->
+<!--</div>-->
+
+
+<% if @empty_cart.blank? %>
+  <div class="d-flex align-items-center justify-content-center" style="height:100px;">
+    <%= link_to "注文情報入力に移動", new_order_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
