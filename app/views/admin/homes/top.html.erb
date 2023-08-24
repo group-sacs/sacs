@@ -22,10 +22,12 @@
             <td class="align-middle link">
               <%= order.customer.last_name+order.customer.first_name %>
             </td>
-          </tr>
-          <% end %>
+            <td><%= order.order_details.sum(:quantity) %></td>
+             <td><%= order.status_i18n %></td>
+            </tr>
+            <% end %>
+
         </tbody>
-      </table>
     </div>
   </div>
 </div>
