@@ -1,38 +1,35 @@
-<h1>商品一覧</h1>
+<div class="container">
+  <div class="row">
+    <h2>商品一覧</h2>
 
-<%= link_to "+", new_admin_item_path %></p>
+      <%= button_to "+", {controller: 'items', action: 'new'}, {method: :get} %>
 
-<table>
-  <thead>
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>税抜価格</th>
-      <th>ジャンル</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-
-<% @items.each do |item| %>
-
-<tbody>
-  <tr>
-    <td><%= item.id %></td>
-    <td><%= link_to item.name, admin_item_path(item.id)%></td>
-    <!--3桁区切りにしたい-->
-　　<td><%= item.without_tax_price %>円</td>
-    <td><%= item.genre.name %></td>
-    <td>
-      <% if  item.is_sales_status == true %>
-        販売中
-      <% else %>
-        販売停止中
-      <% end %>
-    </td>
-  </tr>
-</tbody>
-<% end %>
-</table>
-
-<!--ページネーション確認-->
-
+        <table class="table">
+          <thead>
+            <tr>
+              <th>商品ID</th>
+              <th>商品名</th>
+              <th>税抜価格</th>
+              <th>ジャンル</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+            <% @items.each do |item| %>
+              <tr>
+                <td><%= item.id %></td>
+                <td><%= link_to item.name, admin_item_path(item.id), class:"text-dark"%></td>
+                <td><%= item.without_tax_price.to_s(:delimited) %></td>
+                <td><%= item.genre.name %></td>
+                <td>
+                  <% if  item.is_sales_status == true %>
+                  　販売中
+                  <% else %>
+                  　販売停止中
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </table>
+        <%= paginate @items %>
+  </div>
+</div>
