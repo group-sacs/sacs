@@ -15,7 +15,21 @@
 <div class="container new-item">
   <h2>新着商品</h2>
   <div class="row">
-    <!--新着商品を出す-->
+    <% @items.first(4).each do |item| %>
+    <div class="col-md-3 col-sm-6">
+      <div class="card w-100 bg-transparent border-0" style="width: 18rem;">
+        <%= link_to item_path(item) do %>
+          <%= image_tag(item.image, width: "100px", height: "100px") %>
+        <% end %>
+        <p><%= item.name %></p>
+        <% if item.is_sales_status == true %>
+          <p><%= item.without_tax_price %>円(税抜き)</p>
+        <% else %>
+          <p>販売停止中</p>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
   </div>
   <%= link_to "全ての商品をみる", items_path %>
 </div>
