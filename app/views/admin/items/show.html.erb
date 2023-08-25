@@ -30,9 +30,9 @@
           <tr>
             <td>販売ステータス</td>
             <td><% if  @item.is_sales_status == true %>
-                  販売中
+                  <font color="green">販売中</font>
                 <% else %>
-                  販売停止中
+                  <font color="gray">販売停止中</font>
                 <% end %>
             </td>
           </tr>
