@@ -30,7 +30,7 @@
           <table class='table table-bordered mt-3'>
             <tr>
               <td class='table-active'>商品合計</td>
-              <td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } %></td>
+              <td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).ceil * cart_item.quantity } %></td>
             </tr>
             <tr>
               <td class='table-active'>配送料</td>
@@ -38,7 +38,7 @@
             </tr>
             <tr>
               <td class='table-active'>ご請求額</td>
-              <td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).floor * cart_item.quantity } + 800 %></td>
+              <td><%= @order.order_details.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).ceil * cart_item.quantity } + 800 %></td>
             </tr>
           </table>
         </div>
@@ -59,9 +59,9 @@
             <% @order.order_details.each do |order_detail| %>
             <tr>
                 <td><%= order_detail.item.name %></td>
-                <td><%= (order_detail.item.without_tax_price * 1.1).floor %></td>
+                <td><%= (order_detail.item.without_tax_price * 1.1).ceil %></td>
                 <td><%= order_detail.quantity %></td>
-                <td><%= (order_detail.item.without_tax_price * 1.1 *order_detail.quantity).floor %></td>
+                <td><%= (order_detail.item.without_tax_price * 1.1 *order_detail.quantity).ceil %></td>
             </tr>
             <% end %>
           </table>
