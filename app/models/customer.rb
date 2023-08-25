@@ -20,9 +20,9 @@ class Customer < ApplicationRecord
 
 
 # ユーザーアカウントが認証可能か確認コード
-  # def active_for_authentication?
-  #   super && (self.is_deleted == false)
-  # end
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
 
 
   def address_display

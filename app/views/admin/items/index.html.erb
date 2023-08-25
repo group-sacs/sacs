@@ -8,11 +8,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th>商品ID</th>
-              <th>商品名</th>
-              <th>税抜価格</th>
-              <th>ジャンル</th>
-              <th>ステータス</th>
+              <th class='table-active'>商品ID</th>
+              <th class='table-active'>商品名</th>
+              <th class='table-active'>税抜価格</th>
+              <th class='table-active'>ジャンル</th>
+              <th class='table-active'>ステータス</th>
             </tr>
           </thead>
             <% @items.each do |item| %>
@@ -23,9 +23,9 @@
                 <td><%= item.genre.name %></td>
                 <td>
                   <% if  item.is_sales_status == true %>
-                  　販売中
+                  　<font color="green"><strong>販売中</strong></font>
                   <% else %>
-                  　販売停止中
+                  　<font color="gray">販売停止中</font>
                   <% end %>
                 </td>
               </tr>
