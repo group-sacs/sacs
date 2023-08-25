@@ -1,4 +1,7 @@
-<h1>商品一覧(全<%= Item.count %>件)</h1>
+<div class='container pt-5'>
+  <div class='row'>
+    <div class='col-lg'>
+<h1>商品一覧(全<%= Item.count %>件)</h1></br>
 <div class "container " >
   <div class="row m-2">  
 
@@ -6,11 +9,14 @@
     <div class="col-lg-3" > 
     <div class="">
      <div> <%= link_to image_tag(item.image, width: '200', height: '200'), item_path(item) %>  </div>
-      <div> <%= item.name %> </div>
-      <div> ￥<%= item.without_tax_price %> </div>
+      <div><h5> <%= item.name %> </h5></div>
+      <div> <h6>￥<%= item.without_tax_price %></h6> </div>
     </div>
     </div>
     <% end %>
   </div>  
-</div>    
+</div>  
+</div>
+    </div>
+    </div>
 <%= paginate @items %>
