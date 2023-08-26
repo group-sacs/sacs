@@ -1,9 +1,9 @@
 class Public::DeliveryAddressesController < ApplicationController
   before_action :authenticate_customer!
   def index
-
-    @deliverys = DeliveryAddress.all
-    @customer =current_customer#ログインしているユーザいらない
+ 
+    @deliverys = current_customer.delivery_addresses
+    #@customer =current_customer#ログインしているユーザいらない
     @delivery= DeliveryAddress.new
   end
 
