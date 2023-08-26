@@ -44,7 +44,8 @@
   　</thead>
       <tr> <td colspan="3">合計金額</td>
       <td><%= @cart_items.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).ceil * cart_item.quantity } %></td>
-    </tr></tbody>
+    </tr>
+   </tbody>
 </table></div>
 
 <%= link_to "買い物を続ける", root_path, class: 'btn btn-primary' %></br>
