@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <h2>商品一覧</h2>
+
+      <%= button_to "+", {controller: 'items', action: 'new'}, {method: :get} %>
+      <!--<div class="text-center">< link_to "+", new_admin_item_path(@item), class:"btn btn-outline-warning" %></div>-->
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th class='table-active'>商品ID</th>
+              <th class='table-active'>商品名</th>
+              <th class='table-active'>税抜価格</th>
+              <th class='table-active'>ジャンル</th>
+              <th class='table-active'>ステータス</th>
+            </tr>
+          </thead>
+            <% @items.each do |item| %>
+              <tr>
+                <td><%= item.id %></td>
+                <td><%= link_to item.name, admin_item_path(item.id), class:"text-dark"%></td>
+                <td><%= item.without_tax_price.to_s(:delimited) %></td>
+                <td><%= item.genre.name %></td>
+                <td>
+                  <% if  item.is_sales_status == true %>
+                  　<font color="green"><strong>販売中</strong></font>
+                  <% else %>
+                  　<font color="gray">販売停止中</font>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </table>
+        <%= paginate @items %>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class='container pt-5'>
+  <div class='row'>
+    <div class='col-lg'>
+     <h1>ショッピングカート</h1>
+    </div>
+  </div>
+</div>
+  <div style="display: flex; justify-content: flex-end;">
+   <%= link_to "全部削除",  cart_items_destroy_all_path, method: :delete, class: 'btn btn-danger' %>
+  </div>
+   <div class='container pt-5'>
+    <div class='row'>
+     <div class='col-lg'>
+      <table class="table table-bordered"style="max-width: 1000px;">
+ <thead style="background-color: #ccc;">
+   <th><h4>商品名</h4></th>
+     <th><h4>単価(税込)</h4></th>
+    <th><h4>数量</h4></th>
+  <th><h4>小計</h4></th>
+</thead>
+  <tbody>
+  <% @cart_items.each do |cart_item| %>
+    <% if cart_item.quantity == 0 %>
+     <% else %>
+       <tr>
+        <td><%= image_tag cart_item.item.image, size:"100x100" %>
+          <span style="font-size:25px"> <%= cart_item.item.name %></span> </td>
+           <td><h5><%= (cart_item.item.without_tax_price * 1.1).ceil %></h5></td>
+            <td><%= form_for cart_item, url: cart_item_path(cart_item), method: :patch do |f| %>
+            <%= f.select :quantity, options_for_select((1..100).map { |i| [i, i] }, selected: cart_item.quantity) %>
+           <%= f.submit "数量の変更を確定" %>
+          <% end %>
+        </td>
+        <td><h4><%= (cart_item.item.without_tax_price * 1.1).ceil * cart_item.quantity %><h4></td>
+        <td><%= link_to "削除",    cart_item_path(cart_item.id), method: :delete, class: 'text-danger' %></td>
+      </tr>
+      <% end %>
+    <% end %>
+    </tbody></div></div></div>
+</table>
+<div style="text-align: right;">
+　<table class="table table-bordered"style="max-width: 170px;; display: inline-block;">
+  　<thead>
+  　</thead>
+      <tr> <td colspan="3">合計金額</td>
+      <td><%= @cart_items.sum { |cart_item| (cart_item.item.without_tax_price * 1.1).ceil * cart_item.quantity } %></td>
+    </tr>
+   </tbody>
+</table></div>
+
+<%= link_to "買い物を続ける", root_path, class: 'btn btn-primary' %></br>
+</br>
+</br>
+<!--<div class=" d-flex align-items-center justify-content-center" style="height:100px;">-->
+<!--<%#= link_to "注文情報入力に移動", new_order_path, class: 'btn btn-primary' %>-->
+<!--</div>-->
+
+
+<% if @empty_cart.blank? %>
+  <div class="d-flex align-items-center justify-content-center" style="height:100px;">
+    <%= link_to "注文情報入力に移動", new_order_path, class: 'btn btn-success' %>
+  </div>
+<% end %>

@@ -1,0 +1,47 @@
+<h1>配送先登録/一覧</h1>
+<%= form_with model: DeliveryAddress.new do |f| %>
+<table>
+  　<tbody>
+　　<tr></tr>
+  　　<tr>
+　　　　<th>郵便番号（ハイフンなし）</th>
+　　　　<th><%= f.text_field :postal_code %></th>
+  　　</tr>
+   　  <tr>
+       <td>住所</td>
+       <td><%= f.text_field :address %></td>
+      </tr>
+      <tr>
+       <td>宛名</td>
+       <td><%= f.text_field :name %></td>
+       <td><%= f.submit '新規登録' %></td>
+      </tr>
+      <% end %>
+</table>
+<table class="table table-bordered">
+  　<thead>
+  　　<tr>
+　　　　<th>郵便番号</th>
+　　　　<th>住所</th>
+        <th>宛名</th>
+　　　　 <th></th>
+  　　</tr>
+    </thead>
+ <tbody><tr>
+   <td><%= current_customer.postal_code %></td>
+   <td> <%= current_customer.address %></td>
+   <td> <%= current_customer.last_name%><%= current_customer.first_name%></td>
+   <td><%= link_to "編集",current_customer_edit_path%>
+   </td>
+  </tr>
+   <% @deliverys.each do |delivery| %>
+  <tr>
+   <td><%= delivery.postal_code %></td>
+   <td> <%= delivery.address %></td>
+   <td> <%= delivery.name %></td>
+   <td><%= link_to "編集", edit_delivery_address_path(delivery.id) %>
+   <%= link_to "削除", delivery_address_path(delivery.id), method: :delete %></td>
+  </tr>
+  <% end %>
+ </tbody>
+ </table>
